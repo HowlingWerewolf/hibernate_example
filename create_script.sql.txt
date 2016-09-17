@@ -1,0 +1,18 @@
+--------------------------------------------------------
+--  DDL for Table PAGE
+--------------------------------------------------------
+
+  CREATE TABLE "PAGE" 
+   (	"URL" VARCHAR2(4000 BYTE), 
+	"TIME" DATE, 
+	"CONTENT" VARCHAR2(4000 BYTE), 
+	"ID" NUMBER
+   );
+   
+   
+--------------------------------------------------------
+--  DDL for Sequence PAGE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "PAGE_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+
