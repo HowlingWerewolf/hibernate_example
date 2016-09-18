@@ -1,4 +1,4 @@
-package example.hibernate.model;
+package example.hibernate.model.dao;
 
 import java.util.Date;
 
