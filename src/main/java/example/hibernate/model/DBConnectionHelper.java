@@ -9,7 +9,7 @@ public class DBConnectionHelper {
 	private static DBConnectionHelper instance = null;
 	private static SessionFactory sessionFactory;
 	
-	public DBConnectionHelper() {
+	private DBConnectionHelper() {
 		try {
 			setUp();
 		} catch (Exception e) {
@@ -17,17 +17,27 @@ public class DBConnectionHelper {
 		}
 	}
 	
-	public static DBConnectionHelper getInstance() {
+	private static DBConnectionHelper getInstance() {
 		instance = new DBConnectionHelper();
 		return instance;
 	}
 	
-	public static Session getSession() {
+	protected static Session getSession() {
 		getInstance();
 		return DBConnectionHelper.getSessionFactory().openSession();
 	}
-
-	protected static void setUp() throws Exception {
+	
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		closeSessionFactory();
+	}
+	
+	protected static void closeSessionFactory() {
+		sessionFactory.close();
+	}
+	
+	private static void setUp() throws Exception {
     	try {
     		sessionFactory = new Configuration().configure().buildSessionFactory();
     	}
@@ -40,16 +50,8 @@ public class DBConnectionHelper {
     	}
     }
 	
-	public void closeSession() {
-		sessionFactory.close();	 
-	}
-	
-    static SessionFactory getSessionFactory() {
+	private static SessionFactory getSessionFactory() {
 		return sessionFactory;
-	}
-
-	static void setSessionFactory(SessionFactory sessionFactory) {
-		DBConnectionHelper.sessionFactory = sessionFactory;
 	}
 	
 }

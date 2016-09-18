@@ -10,24 +10,30 @@ public class SessionHelper {
 	public SessionHelper() {
 	}
 	
-	public static void createSession(){
+	private static void createSession() {
         session = DBConnectionHelper.getSession();
 	}
 	
-	public static void save(Object o){
+	private static void closeSession() {
+    	session.close();
+    	DBConnectionHelper.closeSessionFactory();
+	}
+	
+	public static void save(Object o) {
 		try {
 			createSession();
-			
-        	Transaction tx = session.beginTransaction();
-        	session.save(o);
-        	tx.commit();
+			createTransaction(o);
         } catch (Exception ex) {
         	System.out.println(ex.getMessage());
         	System.out.println(ex.getStackTrace());
         } finally {
-        	session.close();
-        	DBConnectionHelper.getInstance();
-			DBConnectionHelper.getSessionFactory().close();
+        	closeSession();
         }
+	}
+	
+	private static void createTransaction(Object o) {	
+    	Transaction tx = session.beginTransaction();
+    	session.save(o);
+    	tx.commit();		
 	}
 }
