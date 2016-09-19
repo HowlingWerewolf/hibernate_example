@@ -31,9 +31,31 @@ public class SessionHelper {
         }
 	}
 	
+//	public static List query(String queryString) {		
+//		List list = null;
+//		
+//		try {
+//			createSession();
+//			list = createQuery(queryString);
+//        } catch (Exception ex) {
+//        	System.out.println(ex.getMessage());
+//        	System.out.println(ex.getStackTrace());
+//        } finally {
+//        	closeSession();
+//        }
+//		
+//		return list;
+//	}
+	
 	private static void createTransaction(Object o) {	
     	Transaction tx = session.beginTransaction();
     	session.save(o);
     	tx.commit();		
 	}
+	
+//	private static List<PageDao> createQuery(String queryString) {	
+//    	Query query = session.createQuery(queryString);
+//    	List list = query.list();	
+//    	return list;
+//	}
 }
