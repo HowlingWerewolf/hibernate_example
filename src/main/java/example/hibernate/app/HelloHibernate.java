@@ -23,7 +23,7 @@ public class HelloHibernate {
 	        SessionHelper.insert(page);
 	        
 	        // select
-	        List<Page> list = SessionHelper.query("FROM Page");
+	        List<Page> list = (List<Page>) SessionHelper.query("FROM Page");
 	        for(Page e : list) {
 	        	System.out.println(e.getTime().toString() + " " + e.getUrl() + " " + e.getContent());
 	        }

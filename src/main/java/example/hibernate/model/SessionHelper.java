@@ -7,8 +7,6 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import example.hibernate.model.dao.Page;
-
 public class SessionHelper {
 
 	private static Session session = null;
@@ -49,8 +47,8 @@ public class SessionHelper {
         }
 	}
 	
-	public static List query(String queryString) {		
-		List list = null;
+	public static List<?> query(String queryString) {		
+		List<?> list = null;
 		
 		try {
 			createSession();
@@ -77,9 +75,9 @@ public class SessionHelper {
     	tx.commit();		
 	}
 	
-	private static List<Page> createQuery(String queryString) {	
+	private static List<?> createQuery(String queryString) {	
     	Query query = session.createQuery(queryString);
-    	List list = query.getResultList();	
+    	List<?> list = query.getResultList();	
     	return list;
 	}
 }
