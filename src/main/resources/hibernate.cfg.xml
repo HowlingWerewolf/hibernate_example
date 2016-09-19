@@ -15,7 +15,7 @@
 		<property name="hibernate.jdbc.use_get_generated_keys">true</property>
 		<property name="show_sql">true</property>
 		
-        <mapping class="example.hibernate.model.dao.PageDao"/>
+        <mapping class="example.hibernate.model.dao.Page"/>
 
 		<!-- List of XML mapping files -->
 		<!-- <mapping resource="Page.hbm.xml"/> -->

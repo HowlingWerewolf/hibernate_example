@@ -1,7 +1,13 @@
 package example.hibernate.model;
 
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import example.hibernate.model.dao.Page;
 
 public class SessionHelper {
 
@@ -19,7 +25,7 @@ public class SessionHelper {
     	DBConnectionHelper.closeSessionFactory();
 	}
 	
-	public static void save(Object o) {
+	public static void insert(Object o) {
 		try {
 			createSession();
 			createTransaction(o);
@@ -31,21 +37,33 @@ public class SessionHelper {
         }
 	}
 	
-//	public static List query(String queryString) {		
-//		List list = null;
-//		
-//		try {
-//			createSession();
-//			list = createQuery(queryString);
-//        } catch (Exception ex) {
-//        	System.out.println(ex.getMessage());
-//        	System.out.println(ex.getStackTrace());
-//        } finally {
-//        	closeSession();
-//        }
-//		
-//		return list;
-//	}
+	public static void delete(Object o) {
+		try {
+			createSession();
+			deleteTransaction(o);
+        } catch (Exception ex) {
+        	System.out.println(ex.getMessage());
+        	System.out.println(ex.getStackTrace());
+        } finally {
+        	closeSession();
+        }
+	}
+	
+	public static List query(String queryString) {		
+		List list = null;
+		
+		try {
+			createSession();
+			list = createQuery(queryString);
+        } catch (Exception ex) {
+        	System.out.println(ex.getMessage());
+        	System.out.println(ex.getStackTrace());
+        } finally {
+        	closeSession();
+        }
+		
+		return list;
+	}
 	
 	private static void createTransaction(Object o) {	
     	Transaction tx = session.beginTransaction();
@@ -53,9 +71,15 @@ public class SessionHelper {
     	tx.commit();		
 	}
 	
-//	private static List<PageDao> createQuery(String queryString) {	
-//    	Query query = session.createQuery(queryString);
-//    	List list = query.list();	
-//    	return list;
-//	}
+	private static void deleteTransaction(Object o) {	
+    	Transaction tx = session.beginTransaction();
+    	session.delete(o);
+    	tx.commit();		
+	}
+	
+	private static List<Page> createQuery(String queryString) {	
+    	Query query = session.createQuery(queryString);
+    	List list = query.getResultList();	
+    	return list;
+	}
 }

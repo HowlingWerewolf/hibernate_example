@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="PAGE")
-public class PageDao {
+public class Page {
 
 	@Id
 	@GeneratedValue(generator = "PAGE_SEQ", strategy = GenerationType.IDENTITY)
@@ -30,9 +30,9 @@ public class PageDao {
 	private String content;
 	
 	
-	public PageDao() {};
+	public Page() {};
 	
-	public PageDao(String url) {
+	public Page(String url) {
 		this.url = url;
 	}
 

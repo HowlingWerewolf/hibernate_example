@@ -1,9 +1,10 @@
 package example.hibernate.app;
 
 import java.util.Date;
+import java.util.List;
 
 import example.hibernate.model.SessionHelper;
-import example.hibernate.model.dao.PageDao;
+import example.hibernate.model.dao.Page;
 
 public class HelloHibernate {
 	
@@ -11,18 +12,25 @@ public class HelloHibernate {
     public static void main(String[] args) {
     	
     	String helloMsg = "Hello Hibernate!";
-		PageDao page = new PageDao(helloMsg);
+		Page page = new Page(helloMsg);
 		page.setTime(new Date());
 		page.setContent(helloMsg);
 		
 		System.out.println(page.getUrl());		
 		
-		try {			
-	        SessionHelper.save(page);
-	        SessionHelper.save(page);
-	        System.out.println("Inserted 2 records successfully!");
-//	        List<PageDao> list = SessionHelper.query("select p from page p");
-//	        list.toString();
+		try {	
+			// insert 
+	        SessionHelper.insert(page);
+	        
+	        // select
+	        List<Page> list = SessionHelper.query("FROM Page");
+	        for(Page e : list) {
+	        	System.out.println(e.getTime().toString() + " " + e.getUrl() + " " + e.getContent());
+	        }
+	        
+	        // delete
+	        SessionHelper.delete(list.get(0));
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
